@@ -1,21 +1,24 @@
 package org.example.models;
 
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import org.example.enums.TipoDisciplina;
 
 public class Aluno extends Usuario {
-    private List<Disciplina> disciplinas;
+    private ArrayList<Disciplina> disciplinasMatriculadas;
 
-    public Aluno(String nome, String email, String senha, List<Disciplina> disciplinas) {
+    public Aluno(String nome, String email, String senha) {
         super(nome, email, senha);
-        this.disciplinas = disciplinas;
+        this.disciplinasMatriculadas = new ArrayList<Disciplina>();
     }
 
-    public List<Disciplina> getDisciplinas() {
-        return disciplinas;
+    public ArrayList<Disciplina> getDisciplinas() {
+        return disciplinasMatriculadas;
     }
 
-    public void setDisciplinas(List<Disciplina> disciplinas) {
-        this.disciplinas = disciplinas;
+    public void setDisciplinas(ArrayList<Disciplina> disciplinas) {
+        this.disciplinasMatriculadas = disciplinas;
     }
 
     /**
@@ -23,7 +26,25 @@ public class Aluno extends Usuario {
      * @param disciplina a ser incluído
      */
     public void incluirDisciplina(Disciplina disciplina) {
+        if(disciplina.getTipoDisciplina() == TipoDisciplina.OBRIGATORIA){
+            if(this.quantidadeDisciplinas()< 4){
+                this.disciplinasMatriculadas.add(disciplina);
+            }
+        }
+        else{
+            if(this)
+        }
 
+    }
+
+    private int quantidadeDisciplinas(){
+        int quantidade = 0;
+        for(Disciplina disciplina : this.disciplinasMatriculadas){
+            if (disciplina.getTipoDisciplina() == TipoDisciplina.OBRIGATORIA){
+                quantidade++;
+            }
+        }
+        return quantidade;
     }
 
     /**
