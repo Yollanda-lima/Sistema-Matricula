@@ -2,6 +2,8 @@ package org.example.models;
 
 import java.time.LocalDate;
 
+import javax.xml.crypto.Data;
+
 import org.example.enums.TipoSemestre;
 
 public class Matricula {
@@ -13,9 +15,34 @@ public class Matricula {
 
     public Matricula(Disciplina disciplina, Aluno aluno, LocalDate dataMatricula, TipoSemestre tipoSemestre) throws Exception{
         this.tipoSemestre = tipoSemestre;
+        this.fluxogramaMatricula(dataMatricula, disciplina, aluno);
+    }
+
+    private void fluxogramaMatricula(LocalDate dataMatricula, Disciplina disciplina, Aluno aluno) throws Exception{
         this.verificarMatricula(dataMatricula);
-        this.disciplina = disciplina;
-        this.aluno = aluno;
+        this.verificarDisciplina(disciplina);
+        this.verificarAluno(aluno);
+        this.matricularAlunoDisciplina();
+    }
+
+    private void matricularAlunoDisciplina(){
+        
+    }
+
+    private void verificarAluno(Aluno aluno) throws Exception{
+        if (aluno.possivelIncluirDisciplina(this.disciplina)){
+            this.aluno = aluno;
+        }else{
+            throw new Exception("Limite de disciplinas excedido");
+        }
+    }
+
+    private void verificarDisciplina(Disciplina disciplina) throws Exception{
+        if (disciplina.vagaDisponivelParaAluno(aluno)){
+            this.disciplina = disciplina;
+        }else{
+            throw new Exception("Vaga nao disponivel para o aluno");
+        }
     }
 
     private void verificarMatricula(LocalDate dataMatricula) throws Exception{

@@ -44,14 +44,22 @@ public class Disciplina {
         return alunosMatriculados;
     }
 
-    public void matricularAluno(Aluno aluno){
-        if (! this.turmaCheia() &&  ! this.verificarAlunoMatriculado(aluno)){
+    public void matricularAluno(Aluno aluno) throws Exception{
+        if (this.turmaCheia()){
+            throw new Exception("Turma ja esta cheia");
+        }else if(this.verificarAlunoMatriculado(aluno)){
+            throw new Exception("Aluno ja esta matriculado");
+        }else{
             this.alunosMatriculados.add(aluno);
         }
     }
 
     private boolean verificarAlunoMatriculado(Aluno aluno){
         return this.alunosMatriculados.contains(aluno);
+    }
+
+    public boolean vagaDisponivelParaAluno(Aluno aluno){
+        return (! this.turmaCheia()) && (! this.verificarAlunoMatriculado(aluno));
     }
 
     /**
