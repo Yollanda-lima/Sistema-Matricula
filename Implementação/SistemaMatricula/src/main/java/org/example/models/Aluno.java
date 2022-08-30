@@ -1,23 +1,27 @@
 package org.example.models;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.example.enums.TipoDisciplina;
+import org.example.enums.TipoSemestre;
 
 public class Aluno extends Usuario {
-    private ArrayList<Disciplina> disciplinasMatriculadas;
+    private ArrayList<Matricula> disciplinasMatriculadas;
+    public static final int NUM_MAX_DISCIPLINAS_OPTATIVAS = 2;
+    public static final int NUM_MIN_DISCIPLINAS_OPTATIVAS = 4;
 
     public Aluno(String nome, String email, String senha) {
         super(nome, email, senha);
-        this.disciplinasMatriculadas = new ArrayList<Disciplina>();
+        this.disciplinasMatriculadas = new ArrayList<Matricula>();
     }
 
-    public ArrayList<Disciplina> getDisciplinas() {
+    public ArrayList<Matricula> getDisciplinas() {
         return disciplinasMatriculadas;
     }
 
-    public void setDisciplinas(ArrayList<Disciplina> disciplinas) {
+    public void setDisciplinas(ArrayList<Matricula> disciplinas) {
         this.disciplinasMatriculadas = disciplinas;
     }
 
@@ -25,7 +29,7 @@ public class Aluno extends Usuario {
      * Inclusão de disciplina para matrícula do aluno
      * @param disciplina a ser incluído
      */
-    public void incluirDisciplina(Disciplina disciplina) {
+    public void incluirDisciplina(Matricula disciplina) {
         if(disciplina.getTipoDisciplina() == TipoDisciplina.OBRIGATORIA){
             if(this.quantidadeDisciplinas()< 4){
                 this.disciplinasMatriculadas.add(disciplina);
@@ -35,6 +39,14 @@ public class Aluno extends Usuario {
             if(this)
         }
 
+    }
+
+    public void matricularDisciplina(Disciplina disciplina, 
+                                     LocalDate dataMatricula,
+                                     TipoSemestre tipoSemestre){
+        
+        Matricula matricula = new Matricula(disciplina, this, dataMatricula);
+        
     }
 
     private int quantidadeDisciplinas(){

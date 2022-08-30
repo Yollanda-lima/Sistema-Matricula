@@ -2,50 +2,39 @@ package org.example.models;
 
 import java.time.LocalDate;
 
+import org.example.enums.TipoSemestre;
+
 public class Matricula {
-    public static final int NUM_MAX_DISCIPLINAS_OPTATIVAS = 2;
-    public static final int NUM_MIN_DISCIPLINAS_OPTATIVAS = 4;
 
     private Disciplina disciplina;
     private Aluno aluno;
-    private LocalDate data;
+    private LocalDate dataMatricula;
+    private TipoSemestre tipoSemestre;
 
-    public Matricula(Disciplina disciplina, Aluno aluno, LocalDate data) {
+    public Matricula(Disciplina disciplina, Aluno aluno, LocalDate dataMatricula, TipoSemestre tipoSemestre) throws Exception{
+        this.tipoSemestre = tipoSemestre;
+        this.verificarMatricula(dataMatricula);
         this.disciplina = disciplina;
         this.aluno = aluno;
-        this.data = data;
+    }
+
+    private void verificarMatricula(LocalDate dataMatricula) throws Exception{
+            if (this.tipoSemestre.getDataInicio().isBefore(dataMatricula) && this.tipoSemestre.getDataFim().isAfter(dataMatricula)){
+                this.dataMatricula = dataMatricula;
+            }else{
+                throw new Exception("Matricula fora da data"); 
+            }
     }
 
     public Disciplina getDisciplina() {
         return disciplina;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
-    }
-
     public Aluno getAluno() {
         return aluno;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    /**
-     * Método que avaliará se a sua disciplina e o aluno está correta de acordo
-     * com a regra de negócio
-     * @return
-     */
-    private boolean matriculaValida() {
-        return false;
+    public LocalDate getDataMatricula() {
+        return dataMatricula;
     }
 }
