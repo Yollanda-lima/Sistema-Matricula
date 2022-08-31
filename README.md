@@ -21,7 +21,7 @@ Como um usuário, devo ter senha, para que possa fazer o login do sistema.
 
 ## Alunos integrantes da equipe
 
-Hugo Poletto Gomes
+Hugo Poletto Alacoque Gomes
 
 Leonardo Gorle Almeida
 
