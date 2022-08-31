@@ -1,5 +1,6 @@
 package org.example.models;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Curso {
@@ -49,7 +50,10 @@ public class Curso {
      * Inclusão do currículo (semestre)
      * @param curriculo
      */
-    public void incluirCurriculo(Semestre curriculo) {
-
+    public void incluirCurriculo(Semestre curriculo) throws IOException {
+        if (curriculo.estaValido())
+            this.curriculos.add(curriculo);
+        else
+            throw new IOException("Currículo está inválido!");
     }
 }

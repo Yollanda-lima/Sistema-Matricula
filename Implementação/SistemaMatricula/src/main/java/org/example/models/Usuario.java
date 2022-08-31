@@ -1,6 +1,9 @@
 package org.example.models;
 
 public abstract class Usuario {
+
+    private int id;
+    private static int ultimoCodigo=0;
     private String nome;
     private String email;
     private String senha;
@@ -29,6 +32,19 @@ public abstract class Usuario {
 
     public String getSenha() {
         return senha;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static void setProximoCodigo(int cod){
+        if(ultimoCodigo<=cod)
+            ultimoCodigo = cod+1;
     }
 
     public void setSenha(String senha) {

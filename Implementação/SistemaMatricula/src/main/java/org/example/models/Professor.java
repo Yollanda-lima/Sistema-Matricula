@@ -1,6 +1,8 @@
 package org.example.models;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Professor extends Usuario {
     private List<Aluno> alunos;
@@ -30,11 +32,14 @@ public class Professor extends Usuario {
     /**
      * Retorna os alunos de acordo com sua disciplina
      * @param disciplina
-     * @param semestre
-     * @param ano
      * @return
      */
-    public List<Aluno> alunosPelaDisciplina(Disciplina disciplina, int semestre, int ano) {
-        return null;
+    public List<Aluno> alunosPelaDisciplina(Disciplina disciplina) {
+        return this.alunos.stream()
+                .filter((aluno) -> aluno.getDisciplinas()
+                    .stream()
+                    .anyMatch(((disc) -> disc.getNome().equals(disciplina.getNome())))
+                )
+                .collect(Collectors.toList());
     }
 }

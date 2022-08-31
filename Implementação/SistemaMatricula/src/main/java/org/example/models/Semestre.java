@@ -1,5 +1,6 @@
 package org.example.models;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -63,6 +64,19 @@ public class Semestre {
      * @return se a matricula é valida ou não
      */
     public boolean matriculaValida(Matricula matricula) {
-        return false;
+        return matricula.getDataMatricula().isEqual(this.dataInicioMatricula) || matricula.getDataMatricula().isEqual(this.dataFimMatricula) ||
+                (matricula.getDataMatricula().isBefore(this.dataInicioMatricula) &&
+                matricula.getDataMatricula().isAfter(this.dataFimMatricula));
+    }
+
+    public boolean estaValido() {
+        return this.matriculas.stream().allMatch(this::matriculaValida);
+    }
+
+    public void incluirMatricula(Matricula matricula) throws IOException {
+        if (this.matriculaValida(matricula))
+            this.matriculas.add(matricula);
+        else
+            throw new IOException("Matrícula inválida!");
     }
 }

@@ -1,0 +1,6 @@
+Cadastrar novo aluno
+Entrar com aluno cadastrado
+Iniciar nova matrícula
+Incluir disciplina
+Concluir matricula atual
+Desfazer matricula atual
