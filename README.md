@@ -1,3 +1,7 @@
+# Sistema de Matrículas 
+
+Uma universidade que pretende informatizar seu sistema de matrículas.
+
 # Histórias de Usuário
 
 Como secretária da universidade, gostaria de gerar o currículo para cada semestre, para ter o controle das informações sobre as disciplinas, dos professores e dos alunos
@@ -10,7 +14,12 @@ Como um professor, posso ter acesso as informações dos alunos, para saber quai
 
 Como um usuário, devo ter senha, para que possa fazer o login do sistema. 
 
-# Alunos
+
+## Professor responsável
+
+* Cleiton Silva Tavares
+
+## Alunos integrantes da equipe
 
 Hugo Poletto Gomes
 
