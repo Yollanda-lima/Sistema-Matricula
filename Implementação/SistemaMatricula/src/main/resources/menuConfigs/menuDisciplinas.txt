@@ -1,2 +1,0 @@
-Cadastrar nova disciplina
-Matricular aluno na disciplina
