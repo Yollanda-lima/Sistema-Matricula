@@ -2,8 +2,6 @@ package org.example.models;
 
 import java.time.LocalDate;
 
-import javax.xml.crypto.Data;
-
 import org.example.enums.TipoSemestre;
 
 public class Matricula {
@@ -19,15 +17,11 @@ public class Matricula {
     }
 
     private void fluxogramaMatricula(LocalDate dataMatricula, Disciplina disciplina, Aluno aluno) throws Exception{
-        this.verificarMatricula(dataMatricula);
+        this.verificarMatriculaPelaData(dataMatricula);
         this.verificarDisciplina(disciplina);
         this.verificarAluno(aluno);
-        this.matricularAlunoDisciplina();
     }
 
-    private void matricularAlunoDisciplina(){
-        
-    }
 
     private void verificarAluno(Aluno aluno) throws Exception{
         if (aluno.possivelIncluirDisciplina(this.disciplina)){
@@ -45,7 +39,7 @@ public class Matricula {
         }
     }
 
-    private void verificarMatricula(LocalDate dataMatricula) throws Exception{
+    private void verificarMatriculaPelaData(LocalDate dataMatricula) throws Exception{
             if (this.tipoSemestre.getDataInicio().isBefore(dataMatricula) && this.tipoSemestre.getDataFim().isAfter(dataMatricula)){
                 this.dataMatricula = dataMatricula;
             }else{

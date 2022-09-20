@@ -77,15 +77,7 @@ public class Aluno extends Usuario {
      * @param disciplina a ser incluído
      */
     public void removerDisciplina(Disciplina disciplina) {
-
+        this.disciplinasMatriculadas.remove(disciplina);
     }
 
-    /**
-     * Método que avaliará se a inclusão ou remoção da
-     * disciplina na matrícula do aluno é válida ou não
-     * @return true caso seja válido a operação
-     */
-    public boolean acaoValida() {
-        return false;
-    }
 }
