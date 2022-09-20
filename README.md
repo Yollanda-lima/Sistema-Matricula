@@ -13,11 +13,11 @@ Como cliente, gostaria de cancelar pedido de aluguel de um veiculo
 
 Como usuario, gostaria de logar dentro do sistema
 
-Como agente financeiro, gostaria avaliar o pedido de aluguel do cliente
+Como agente financeiro, gostaria de avaliar o pedido de aluguel do cliente
 
-Como agente financeiro, gostaria modificar o pedido de aluguel do cliente
+Como agente financeiro, gostaria de modificar o pedido de aluguel do cliente
 
-Como agente financeiro, gostaria autorizar contrato de credito para o cliente
+Como agente financeiro, gostaria de autorizar contrato de credito para o cliente
 
 Como agente financeiro, gostaria de emitir contrato de aluguel para o cliente
 
