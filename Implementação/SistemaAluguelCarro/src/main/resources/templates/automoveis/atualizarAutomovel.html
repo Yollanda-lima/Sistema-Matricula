@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Atualização do Automóvel</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/automovel/cadastrar">
+                Cadastrar Automóvel</a>
+        </li>
+        <li>
+            <a href="/automovel/visualizarTodos">
+                Visualizar Automóvel</a>
+        </li>
+    </ul>
+</nav>
+<h2>Atualizar Automóvel</h2>
+<form method="POST">
+    <label for="automovelId">Id:</label> <input type="text"
+                                                             name="automovelId" th:value=${automovel.getId()} disabled size="50"></input><br />
+    <label for="matricula">Matrícula:</label> <input type="text"
+                                                     name="matricula" th:value=${automovel.getMatricula()} size="50"></input><br />
+    <label for="ano">Ano:</label> <input type="text"
+                                         name="ano" th:value=${automovel.getAno()} size="50"></input><br />
+    <label for="marca">Marca:</label> <input type="text"
+                                             name="marca" th:value=${automovel.getMarca()} size="50"></input><br />
+    <label for="modelo">Modelo:</label> <input type="text"
+                                               name="modelo" th:value=${automovel.getModelo()} size="50"></input><br />
+    <label for="placa">Placa:</label> <input type="text"
+                                             name="placa" th:value=${automovel.getPlaca()} size="50"></input><br />    <input type="submit"></input>
+</form>
+</body>
+</html>

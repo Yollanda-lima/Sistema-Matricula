@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Lista de agentes Financeiros</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/agenteFinanceiro/cadastrar">
+                Cadastrar Agente Financeiro</a>
+        </li>
+        <li>
+            <a href="/agenteFinanceiro/visualizarTodos">
+                Visualizar Agente Financeiro</a>
+        </li>
+    </ul>
+</nav>
+<h2>Visualização do Agente Financeiro</h2>
+<div>
+    <label for="userId">Id de usuário:</label> <input type="text"
+                                                      id="userId" th:value=${agenteFinanceiro.getId()} disabled size="50"></input><br />
+    Nome de usuário: <span th:text="${agenteFinanceiro.getNomeUsuario()}">NomeAgente</span><br />
+    Nome completo: <span th:text="${agenteFinanceiro.getNomeCompleto()}">NomeCompleto</span><br />
+    CPF: <span th:text="${agenteFinanceiro.getCpf()}">cpfUsuario</span><br />
+    Endereço: <span th:text="${agenteFinanceiro.getEndereco()}">cpfUsuario</span><br />
+    Nome da Empresa: <span th:text="${agenteFinanceiro.getNomeEmpresa()}">Endereco</span><br /><br />
+    <button th:onclick="'deletar();'">Deletar</button>
+    <button th:onclick="'atualizar();'">Atualizar</button>
+</div>
+<script th:inline="javascript">
+    function deletar() {
+        event.preventDefault();
+        var id = [[${agenteFinanceiro.getId()}]];
+        var url = "http://localhost:8080/agenteFinanceiro/deletar/" + id;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", url, true);
+        xhttp.send();
+    }
+
+    function atualizar() {
+        event.preventDefault();
+        var id = [[${agenteFinanceiro.getId()}]];
+        window.location.href = "http://localhost:8080/agenteFinanceiro/atualizar/" + id;
+    }
+</script>
+</body>
+</html>

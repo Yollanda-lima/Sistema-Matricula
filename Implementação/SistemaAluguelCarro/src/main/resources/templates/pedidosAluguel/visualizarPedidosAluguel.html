@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Lista de Pedidos de Aluguel</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/pedidoAluguel/cadastrar">
+                Cadastrar Pedido de Aluguel</a>
+        </li>
+        <li>
+            <a href="/pedidoAluguel/visualizarTodos">
+                Visualizar Pedidos de Aluguel</a>
+        </li>
+    </ul>
+</nav>
+<h2>Lista de Pedidos de Aluguel</h2>
+<div th:unless="${#lists.isEmpty(pedidosAluguel)}">
+    <dl th:each="pedidoAluguel : ${pedidosAluguel}">
+        <dt class="bookHeadline">
+
+            <label for="pedidoAluguelId">Id de usuário:</label> <input type="text"
+            th:id="${pedidoAluguel.getId()}" th:value=${pedidoAluguel.getId()} disabled size="50"></input><br />
+            Cliente ID: <span th:text="${pedidoAluguel.getClienteID()}">NomeAgente</span><br />
+            Automovel ID: <span th:text="${pedidoAluguel.getAutomovelID()}">NomeCompleto</span><br />
+            Data de Inicio: <span th:text="${pedidoAluguel.getDataInicio()}">cpfUsuario</span><br />
+            Data Final: <span th:text="${pedidoAluguel.getDataFim()}">cpfUsuario</span><br />
+            <button th:onclick="'ver(\''  + ${pedidoAluguel.getId()} +  '\');'">Ver mais detalhes</button>    </dl>
+</div>
+<div th:if="${#lists.isEmpty(pedidosAluguel)}">
+    <p>Nenhum Pedido de Aluguel cadastrado!</p>
+</div>
+<script th:inline="javascript">
+    function ver(id) {
+        window.location.href =  "http://localhost:8080/pedidoAluguel/ver/" + id;
+
+    }
+</script>
+</body>
+</html>

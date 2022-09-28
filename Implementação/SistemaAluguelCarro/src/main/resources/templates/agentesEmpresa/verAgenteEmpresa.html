@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Visualização do Agente de Empresa</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/agenteEmpresa/cadastrar">
+                Cadastrar Agente de Empresa</a>
+        </li>
+        <li>
+            <a href="/agenteEmpresa/visualizarTodos">
+                Visualizar Agente de Empresa</a>
+        </li>
+    </ul>
+</nav>
+<h2>Visualização do Agente de Empresa</h2>
+<div>
+    <label for="userId">Id de usuário:</label> <input type="text"
+                                                      id="userId" th:value=${agenteEmpresa.getId()} disabled size="50"></input><br />
+    Nome de usuário: <span th:text="${agenteEmpresa.getNomeUsuario()}">NomeAgente</span><br />
+    Nome completo: <span th:text="${agenteEmpresa.getNomeCompleto()}">NomeCompleto</span><br />
+    CPF: <span th:text="${agenteEmpresa.getCpf()}">cpfUsuario</span><br />
+    Endereço: <span th:text="${agenteEmpresa.getEndereco()}">cpfUsuario</span><br />
+    Nome da Empresa: <span th:text="${agenteEmpresa.getNomeEmpresa()}">Endereco</span><br /><br />
+    <button th:onclick="'deletar();'">Deletar</button>
+    <button th:onclick="'atualizar();'">Atualizar</button>
+</div>
+<script th:inline="javascript">
+    function deletar() {
+        event.preventDefault();
+        var id = [[${agenteEmpresa.getId()}]];
+        var url = "http://localhost:8080/agenteEmpresa/deletar/" + id;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", url, true);
+        xhttp.send();
+    }
+
+    function atualizar() {
+        event.preventDefault();
+        var id = [[${agenteEmpresa.getId()}]];
+        window.location.href = "http://localhost:8080/agenteEmpresa/atualizar/" + id;
+    }
+</script>
+</body>
+</html>

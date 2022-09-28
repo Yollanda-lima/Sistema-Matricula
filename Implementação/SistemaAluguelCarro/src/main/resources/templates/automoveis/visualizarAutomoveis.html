@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Lista de Automóveis</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/automovel/cadastrar">
+                Cadastrar Automóvel</a>
+        </li>
+        <li>
+            <a href="/automovel/visualizarTodos">
+                Visualizar Automóveis</a>
+        </li>
+    </ul>
+</nav>
+<h2>Lista de Automóveis</h2>
+<div th:unless="${#lists.isEmpty(automoveis)}">
+    <dl th:each="automovel : ${automoveis}">
+        <dt class="bookHeadline">
+
+            <label for="automovelId">Id de usuário:</label> <input type="text"
+            th:id="${automovel.getId()}" th:value=${automovel.getId()} disabled size="50"></input><br />
+            Matricula: <span th:text="${automovel.getMatricula()}">NomeAgente</span><br />
+            Ano: <span th:text="${automovel.getAno()}">NomeCompleto</span><br />
+            Marca: <span th:text="${automovel.getMarca()}">cpfUsuario</span><br />
+            Modelo: <span th:text="${automovel.getModelo()}">cpfUsuario</span><br />
+            Placa: <span th:text="${automovel.getPlaca()}">Endereco</span><br /><br />
+            <button th:onclick="'ver(\''  + ${automovel.getId()} +  '\');'">Ver mais detalhes</button>    </dl>
+</div>
+<div th:if="${#lists.isEmpty(automoveis)}">
+    <p>Nenhum Agente Financeiro cadastrado!</p>
+</div>
+<script th:inline="javascript">
+    function ver(id) {
+        window.location.href =  "http://localhost:8080/automovel/ver/" + id;
+
+    }
+</script>
+</body>
+</html>

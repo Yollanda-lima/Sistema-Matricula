@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Visualização do Cliente</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/cliente/cadastrar">
+                Cadastrar Cliente</a>
+        </li>
+        <li>
+            <a href="/cliente/visualizarTodos">
+                Visualizar Cliente</a>
+        </li>
+    </ul>
+</nav>
+<h2>Visualização do Cliente</h2>
+<div>
+    <label for="userId">Id de usuário:</label> <input type="text"
+                                                      id="userId" th:value=${cliente.getId()} disabled size="50"></input><br />
+    Nome de usuário: <span th:text="${cliente.getNomeUsuario()}">NomeAgente</span><br />
+    Nome completo: <span th:text="${cliente.getNomeCompleto()}">NomeCompleto</span><br />
+    CPF: <span th:text="${cliente.getCpf()}">cpfUsuario</span><br />
+    RG: <span th:text="${cliente.getRg()}">rgUsuario</span><br />
+    Endereço: <span th:text="${cliente.getEndereco()}">cpfUsuario</span><br />
+    Profissão: <span th:text="${cliente.getProfissao()}">profissao</span><br />
+    <button th:onclick="'deletar();'">Deletar</button>
+    <button th:onclick="'atualizar();'">Atualizar</button>
+    <div>
+
+    </div>
+
+</div>
+<script th:inline="javascript">
+    function deletar() {
+        event.preventDefault();
+        var id = [[${cliente.getId()}]];
+        var url = "http://localhost:8080/cliente/deletar/" + id;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", url, true);
+        xhttp.send();
+    }
+
+    function atualizar() {
+        event.preventDefault();
+        var id = [[${cliente.getId()}]];
+        window.location.href = "http://localhost:8080/cliente/atualizar/" + id;
+    }
+</script>
+</body>
+</html>

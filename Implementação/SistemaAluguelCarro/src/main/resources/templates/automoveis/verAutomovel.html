@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Lista de Automóveis</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/automovel/cadastrar">
+                Cadastrar Automóvel</a>
+        </li>
+        <li>
+            <a href="/automovel/visualizarTodos">
+                Visualizar Automóveis</a>
+        </li>
+    </ul>
+</nav>
+<h2>Visualização do Automóveis</h2>
+<div>
+    <label for="automovelId">Id:</label> <input type="text"
+                                                      id="automovelId" th:value=${automovel.getId()} disabled size="50"></input><br />
+    Matricula: <span th:text="${automovel.getMatricula()}">NomeAgente</span><br />
+    Ano: <span th:text="${automovel.getAno()}">NomeCompleto</span><br />
+    Marca: <span th:text="${automovel.getMarca()}">cpfUsuario</span><br />
+    Modelo: <span th:text="${automovel.getModelo()}">cpfUsuario</span><br />
+    Placa: <span th:text="${automovel.getPlaca()}">Endereco</span><br /><br />
+    <button th:onclick="'deletar();'">Deletar</button>
+    <button th:onclick="'atualizar();'">Atualizar</button>
+</div>
+<script th:inline="javascript">
+    function deletar() {
+        event.preventDefault();
+        var id = [[${automovel.getId()}]];
+        var url = "http://localhost:8080/automovel/deletar/" + id;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", url, true);
+        xhttp.send();
+    }
+
+    function atualizar() {
+        event.preventDefault();
+        var id = [[${automovel.getId()}]];
+        window.location.href = "http://localhost:8080/automovel/atualizar/" + id;
+    }
+</script>
+</body>
+</html>

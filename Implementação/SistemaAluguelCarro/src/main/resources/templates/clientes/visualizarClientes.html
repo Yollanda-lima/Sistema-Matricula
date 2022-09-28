@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>Lista de clientes</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/cliente/cadastrar">
+                Cadastrar Cliente</a>
+        </li>
+        <li>
+            <a href="/cliente/visualizarTodos">
+                Visualizar Cliente</a>
+        </li>
+    </ul>
+</nav>
+<h2>Lista de clientes</h2>
+<div th:unless="${#lists.isEmpty(clientes)}">
+    <dl th:each="cliente : ${clientes}">
+        <dt class="bookHeadline">
+            Nome de usuário: <span th:text="${cliente.getNomeUsuario()}">NomeAgente</span><br />
+            Nome completo: <span th:text="${cliente.getNomeCompleto()}">NomeCompleto</span><br />
+            CPF: <span th:text="${cliente.getCpf()}">cpfUsuario</span><br />
+            RG: <span th:text="${cliente.getRg()}">rgUsuario</span><br />
+            Endereço: <span th:text="${cliente.getEndereco()}">cpfUsuario</span><br />
+            Profissão: <span th:text="${cliente.getProfissao()}">profissao</span><br />
+            <button th:onclick="'ver(\''  + ${cliente.getId()} +  '\');'">Ver mais detalhes</button>    </dl>
+
+        </dt>
+    </dl>
+</div>
+<div th:if="${#lists.isEmpty(clientes)}">
+    <p>Nenhum Cliente cadastrado!</p>
+</div>
+<script th:inline="javascript">
+    function ver(id) {
+        window.location.href =  "http://localhost:8080/cliente/ver/" + id;
+
+    }
+</script>
+</body>
+</html>

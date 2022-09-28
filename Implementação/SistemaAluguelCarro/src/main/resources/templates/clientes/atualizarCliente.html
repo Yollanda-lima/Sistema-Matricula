@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Atualização do Cliente</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/cliente/cadastrar">
+                Cadastrar Cliente</a>
+        </li>
+        <li>
+            <a href="/agenteFinanceiro/visualizarTodos">
+                Visualizar Cliente</a>
+        </li>
+    </ul>
+</nav>
+<h2>Atualizar Cliente</h2>
+<form method="POST">
+    <label for="userId">Id de usuário:</label> <input type="text"
+                                                             name="userId" th:value=${cliente.getId()} disabled size="50"></input><br />
+    <label for="nomeUsuario">Nome de usuário:</label> <input type="text"
+                                                             name="nomeUsuario" th:value=${cliente.getNomeUsuario()} size="50"></input><br />
+    <label for="nomeCompleto">Nome completo:</label> <input type="text"
+                                                            name="nomeCompleto" th:value=${cliente.getNomeCompleto()} size="50"></input><br />
+    <label for="senha">Senha:</label> <input type="text"
+                                             name="senha" th:value=${cliente.getSenha()} size="50"></input><br />
+    <label for="cpf">CPF:</label> <input type="text"
+                                         name="cpf" th:value=${cliente.getCpf()} size="50"></input><br />
+    <label for="rg">RG:</label> <input type="text"
+                                       name="rg" th:value=${cliente.getRg()} size="50"></input><br />
+    <label for="endereco">Endereço:</label> <input type="text"
+                                                   name="endereco" th:value=${cliente.getEndereco()} size="50"></input><br />
+    <label for="nomeEmpresa">Profissão:</label> <input type="text"
+                                                       name="profissao" th:value=${cliente.getProfissao()} size="50"></input><br />
+    <input type="submit"></input>
+</form>
+</body>
+</html>

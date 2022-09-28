@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Visualização do Pedido de Aluguel</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/pedidoAluguel/cadastrar">
+                Cadastrar Pedido de Aluguel</a>
+        </li>
+        <li>
+            <a href="/pedidoAluguel/visualizarTodos">
+                Visualizar Pedido de Aluguel</a>
+        </li>
+    </ul>
+</nav>
+<h2>Visualização do Pedidos de Aluguel</h2>
+<div>
+    <label for="pedidoAluguelId">Id de usuário:</label> <input type="text"
+                                                               th:id="${pedidoAluguel.getId()}" th:value=${pedidoAluguel.getId()} disabled size="50"></input><br />
+    Cliente ID: <span th:text="${pedidoAluguel.getClienteID()}">NomeAgente</span><br />
+    Automovel ID: <span th:text="${pedidoAluguel.getAutomovelID()}">NomeCompleto</span><br />
+    Data de Inicio: <span th:text="${pedidoAluguel.getDataInicio()}">cpfUsuario</span><br />
+    Data Final: <span th:text="${pedidoAluguel.getDataFim()}">cpfUsuario</span><br />
+    <button th:onclick="'deletar();'">Deletar</button>
+    <button th:onclick="'atualizar();'">Atualizar</button>
+</div>
+<script th:inline="javascript">
+    function deletar() {
+        event.preventDefault();
+        var id = [[${pedidoAluguel.getId()}]];
+        var url = "http://localhost:8080/pedidoAluguel/deletar/" + id;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", url, true);
+        xhttp.send();
+    }
+
+    function atualizar() {
+        event.preventDefault();
+        var id = [[${pedidoAluguel.getId()}]];
+        window.location.href = "http://localhost:8080/pedidoAluguel/atualizar/" + id;
+    }
+</script>
+</body>
+</html>

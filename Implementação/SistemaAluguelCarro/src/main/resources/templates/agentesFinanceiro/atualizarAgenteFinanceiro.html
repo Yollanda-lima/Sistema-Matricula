@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Atualização do Agente Financeiro</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/agenteFinanceiro/cadastrar">
+                Cadastrar Agente Financeiro</a>
+        </li>
+        <li>
+            <a href="/agenteFinanceiro/visualizarTodos">
+                Visualizar Agente Financeiro</a>
+        </li>
+    </ul>
+</nav>
+<h2>Atualizar Agente Financeiro</h2>
+<form method="POST">
+    <label for="userId">Id de usuário:</label> <input type="text"
+                                                             name="userId" th:value=${agenteFinanceiro.getId()} disabled size="50"></input><br />
+    <label for="nomeUsuario">Nome de usuário:</label> <input type="text"
+                                                             name="nomeUsuario" th:value="${agenteFinanceiro.getNomeUsuario()}" size="50"></input><br />
+    <label for="nomeCompleto">Nome completo:</label> <input type="text"
+                                                            name="nomeCompleto" th:value="${agenteFinanceiro.getNomeCompleto()}" size="50"></input><br />
+    <label for="senha">Senha:</label> <input type="text"
+                                             name="senha" size="50" th:value="${agenteFinanceiro.getSenha()}"></input><br />
+    <label for="cpf">CPF:</label> <input type="text"
+                                         name="cpf" size="50" th:value="${agenteFinanceiro.getCpf()}"></input><br />
+    <label for="endereco">Endereço:</label> <input type="text"
+                                                   name="endereco" th:value="${agenteFinanceiro.getEndereco()}" size="50"></input><br />
+    <label for="nomeEmpresa">Nome da Empresa:</label> <input type="text"
+                                                             name="nomeEmpresa" th:value="${agenteFinanceiro.getNomeEmpresa()}" size="50"></input><br />
+    <input type="submit"></input>
+</form>
+</body>
+</html>

@@ -1,12 +1,12 @@
 package com.aluguel.carro.repository;
 
-import com.aluguel.carro.entity.Cliente;
+import com.aluguel.carro.entity.AgenteFinanceiro;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ClienteRepository extends
-        JpaRepository<Cliente, Long> {
+public interface AgenteFinanceiroRepository extends
+        JpaRepository<AgenteFinanceiro, Long> {
 
     /**
      * Encontra todos os livros de um mesmo autor.
@@ -14,7 +14,7 @@ public interface ClienteRepository extends
      * @param autor
      * @return lista de livros
      */
-    List<Cliente> findByRg(String rg);
+    List<AgenteFinanceiro> findByNomeEmpresa(String nomeEmpresa);
 
 
 }

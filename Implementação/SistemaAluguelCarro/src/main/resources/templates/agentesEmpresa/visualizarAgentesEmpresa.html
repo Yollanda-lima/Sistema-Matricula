@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Lista de agentes de Empresa</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/agenteEmpresa/cadastrar">
+                Cadastrar Agente de Empresa</a>
+        </li>
+        <li>
+            <a href="/agenteEmpresa/visualizarTodos">
+                Visualizar Agente de Empresa</a>
+        </li>
+    </ul>
+</nav>
+<h2>Lista de Agentes de Empresa</h2>
+<div th:unless="${#lists.isEmpty(agentesEmpresa)}">
+    <dl th:each="agenteEmpresa : ${agentesEmpresa}">
+        <dt class="bookHeadline">
+            Nome de usuário: <span th:text="${agenteEmpresa.getNomeUsuario()}">NomeAgente</span><br />
+            Nome completo: <span th:text="${agenteEmpresa.getNomeCompleto()}">NomeCompleto</span><br />
+            CPF: <span th:text="${agenteEmpresa.getCpf()}">CpfUsuario</span><br />
+            Endereço: <span th:text="${agenteEmpresa.getEndereco()}">Endereco</span><br />
+            Nome da Empresa: <span th:text="${agenteEmpresa.getNomeEmpresa()}">Endereco</span><br />
+            <button th:onclick="'ver(\''  + ${agenteEmpresa.getId()} +  '\');'">Ver mais detalhes</button>    </dl>
+
+        </dt>
+    </dl>
+</div>
+<div th:if="${#lists.isEmpty(agentesEmpresa)}">
+    <p>Nenhum Agente de Empresa cadastrado!</p>
+</div>
+<script th:inline="javascript">
+    function ver(id) {
+        window.location.href =  "http://localhost:8080/agenteEmpresa/ver/" + id;
+
+    }
+</script>
+</body>
+</html>

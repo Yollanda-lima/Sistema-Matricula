@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Lista de agentes Financeiros</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/agenteFinanceiro/cadastrar">
+                Cadastrar Agente Financeiro</a>
+        </li>
+        <li>
+            <a href="/agenteFinanceiro/visualizarTodos">
+                Visualizar Agente Financeiro</a>
+        </li>
+    </ul>
+</nav>
+<h2>Lista de Agentes Financeiros</h2>
+<div th:unless="${#lists.isEmpty(agentesFinanceiros)}">
+    <dl th:each="agenteFinanceiro : ${agentesFinanceiros}">
+        <dt class="bookHeadline">
+
+            <label for="userId">Id de usuário:</label> <input type="text"
+            th:id="${agenteFinanceiro.getId()}" th:value=${agenteFinanceiro.getId()} disabled size="50"></input><br />
+            Nome de usuário: <span th:text="${agenteFinanceiro.getNomeUsuario()}">NomeAgente</span><br />
+            Nome completo: <span th:text="${agenteFinanceiro.getNomeCompleto()}">NomeCompleto</span><br />
+            CPF: <span th:text="${agenteFinanceiro.getCpf()}">cpfUsuario</span><br />
+            Endereço: <span th:text="${agenteFinanceiro.getEndereco()}">cpfUsuario</span><br />
+            Nome da Empresa: <span th:text="${agenteFinanceiro.getNomeEmpresa()}">Endereco</span><br /><br />
+            <button th:onclick="'ver(\''  + ${agenteFinanceiro.getId()} +  '\');'">Ver mais detalhes</button>    </dl>
+</div>
+<div th:if="${#lists.isEmpty(agentesFinanceiros)}">
+    <p>Nenhum Agente Financeiro cadastrado!</p>
+</div>
+<script th:inline="javascript">
+    function ver(id) {
+        window.location.href =  "http://localhost:8080/agenteFinanceiro/ver/" + id;
+
+    }
+</script>
+</body>
+</html>

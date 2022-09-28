@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Atualização do Pedido de Aluguel</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/">Pagina Inicial</a>
+        </li>
+        <li>
+            <a href="/pediodoAluguel/cadastrar">
+                Cadastrar Pedido de Aluguel</a>
+        </li>
+        <li>
+            <a href="/pediodoAluguel/visualizarTodos">
+                Visualizar Pedido de Aluguel</a>
+        </li>
+    </ul>
+</nav>
+<h2>Atualizar Pedido de Aluguel</h2>
+<form method="POST">
+    <label for="pediodoAluguelId">Id:</label> <input type="text"
+                                                             name="pediodoAluguelId" th:value=${pediodoAluguel.getId()} disabled size="50"></input><br />
+    <label for="cliente_id">Id do Cliente:</label> <input type="text"
+                                                     name="cliente_id" th:value=${pediodoAluguel.getClienteID()} size="50"></input><br />
+    <label for="automovel_id">Id do Automóvel:</label> <input type="text"
+                                         name="automovel_id" th:value=${pediodoAluguel.getAutomovelID()} size="50"></input><br />
+    <label for="dataInicio">Data de Inicio:</label> <input type="date"
+                                             name="dataInicio" th:value=${pediodoAluguel.getDataInicio().toString()} size="50"></input><br />
+    <label for="dataFim">Data Final:</label> <input type="date"
+                                               name="dataFim" th:value=${pediodoAluguel.getDataFim().toString()} size="50"></input><br />
+    <input type="submit"></input>
+</form>
+</body>
+</html>
