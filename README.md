@@ -9,10 +9,10 @@ Repositório dedicado a matéria Laboratório de Desenvolvimento de Software na 
 
 ## Alunos integrantes da equipe
 
-Hugo Poletto Alacoque Gomes
+* Hugo Poletto Alacoque Gomes
 
-Leonardo Gorle Almeida
+* Leonardo Gorle Almeida
 
-Vitor Costa Salem
+* Vitor Costa Salem
 
-Yollanda Lima Barbosa
+* Yollanda Lima Barbosa
