@@ -1,6 +1,8 @@
 package com.aluguel.carro.controller;
 
 import com.aluguel.carro.dto.PedidoAluguelDTO;
+import com.aluguel.carro.entity.Automovel;
+import com.aluguel.carro.entity.Cliente;
 import com.aluguel.carro.entity.PedidoAluguel;
 import com.aluguel.carro.repository.AutomovelRepository;
 import com.aluguel.carro.repository.ClienteRepository;
@@ -35,9 +37,9 @@ public class PedidoAluguelController {
 
     @RequestMapping(value = "/atualizar/{id}", method = RequestMethod.GET)
     public String atualizacaoPedidoAluguel(@PathVariable("id") Long id, Model model) {
-        PedidoAluguel pedidoAluguel = pedidoAluguelRepository.getReferenceById(id);
-        System.out.println(pedidoAluguel.getId());
-        model.addAttribute("pedidoAluguel", pedidoAluguel);
+        PedidoAluguelDTO pedidoAluguelDTO = new PedidoAluguelDTO(pedidoAluguelRepository.getReferenceById(id));
+        System.out.println(pedidoAluguelDTO.getId());
+        model.addAttribute("pedidoAluguel", pedidoAluguelDTO);
         return "pedidosAluguel/atualizarPedidoAluguel";
     }
 
@@ -61,8 +63,15 @@ public class PedidoAluguelController {
     public String cadastrarPedidoAluguelNoSistema(PedidoAluguelDTO pedidoAluguelDTO) {
         System.out.println(pedidoAluguelDTO.getDataInicio());
         PedidoAluguel pedidoAluguel = pedidoAluguelDTO.build();
-        pedidoAluguel.setCliente(clienteRepository.getReferenceById(pedidoAluguelDTO.getClienteID()));
-        pedidoAluguel.setAutomovel(automovelRepository.getReferenceById(pedidoAluguelDTO.getAutomovelID()));
+        Cliente cliente = clienteRepository.getReferenceById(pedidoAluguelDTO.getClienteID());
+        Automovel automovel = automovelRepository.getReferenceById(pedidoAluguelDTO.getAutomovelID());
+
+        pedidoAluguel.setCliente(cliente);
+        pedidoAluguel.setAutomovel(automovel);
+
+        cliente.getPedidosAlugueis().add(pedidoAluguel);
+
+        clienteRepository.save(cliente);
 
         pedidoAluguelRepository.save(pedidoAluguel);
 
@@ -72,9 +81,17 @@ public class PedidoAluguelController {
     @RequestMapping(value = "/atualizar/{id}", method = RequestMethod.POST)
     public String AtualizarPedidoAluguelNoSistema(PedidoAluguelDTO pedidoAluguelDTO, @PathVariable("id") Long id) {
         PedidoAluguel pedidoAluguel = pedidoAluguelDTO.build();
-        pedidoAluguel.setCliente(clienteRepository.getReferenceById(pedidoAluguelDTO.getClienteID()));
-        pedidoAluguel.setAutomovel(automovelRepository.getReferenceById(pedidoAluguelDTO.getAutomovelID()));
+        Cliente cliente = clienteRepository.getReferenceById(pedidoAluguelDTO.getClienteID());
+        Automovel automovel = automovelRepository.getReferenceById(pedidoAluguelDTO.getAutomovelID());
 
+        pedidoAluguel.setCliente(cliente);
+        pedidoAluguel.setAutomovel(automovel);
+
+        cliente.getPedidosAlugueis().add(pedidoAluguel);
+
+        clienteRepository.save(cliente);
+
+        pedidoAluguelRepository.save(pedidoAluguel);
         pedidoAluguelRepository.save(pedidoAluguel);
         return "redirect:/pedidoAluguel/visualizarTodos";
     }

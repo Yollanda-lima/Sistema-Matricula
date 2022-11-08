@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Atualização do Agente de Empresa</title>
+    <title>Atualização do Agente Empresa</title>
 </head>
 <body>
 <nav>
@@ -10,18 +10,18 @@
         </li>
         <li>
             <a href="/agenteEmpresa/cadastrar">
-                Cadastrar Agente de Empresa</a>
+                Cadastrar Agente Empresa</a>
         </li>
         <li>
             <a href="/agenteEmpresa/visualizarTodos">
-                Visualizar Agente de Empresa</a>
+                Visualizar Agente Empresa</a>
         </li>
     </ul>
 </nav>
-<h2>Atualizar Agente de Empresa</h2>
+<h2>Atualizar Agente Empresa</h2>
 <form method="POST">
     <label for="userId">Id de usuário:</label> <input type="text"
-                                                             name="userId" th:value=${agenteEmpresa.getId()} disabled size="50"></input><br />
+                                                      name="userId" th:value=${agenteEmpresa.getId()} disabled size="50"></input><br />
     <label for="nomeUsuario">Nome de usuário:</label> <input type="text"
                                                              name="nomeUsuario" th:value="${agenteEmpresa.getNomeUsuario()}" size="50"></input><br />
     <label for="nomeCompleto">Nome completo:</label> <input type="text"

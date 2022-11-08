@@ -9,27 +9,27 @@
             <a href="/">Pagina Inicial</a>
         </li>
         <li>
-            <a href="/pediodoAluguel/cadastrar">
+            <a href="/pedidoAluguel/cadastrar">
                 Cadastrar Pedido de Aluguel</a>
         </li>
         <li>
-            <a href="/pediodoAluguel/visualizarTodos">
+            <a href="/pedidoAluguel/visualizarTodos">
                 Visualizar Pedido de Aluguel</a>
         </li>
     </ul>
 </nav>
 <h2>Atualizar Pedido de Aluguel</h2>
 <form method="POST">
-    <label for="pediodoAluguelId">Id:</label> <input type="text"
-                                                             name="pediodoAluguelId" th:value=${pediodoAluguel.getId()} disabled size="50"></input><br />
-    <label for="cliente_id">Id do Cliente:</label> <input type="text"
-                                                     name="cliente_id" th:value=${pediodoAluguel.getClienteID()} size="50"></input><br />
-    <label for="automovel_id">Id do Automóvel:</label> <input type="text"
-                                         name="automovel_id" th:value=${pediodoAluguel.getAutomovelID()} size="50"></input><br />
+    <label for="pedidoAluguelId">Id:</label> <input type="text"
+                                                             name="pedidoAluguelId" th:value=${pedidoAluguel.getId()} disabled size="50"></input><br />
+    <label for="clienteID">Id do Cliente:</label> <input type="text"
+                                                     name="clienteID" th:value=${pedidoAluguel.getClienteID()} size="50"></input><br />
+    <label for="automovelID">Id do Automóvel:</label> <input type="text"
+                                         name="automovelID" th:value=${pedidoAluguel.getAutomovelID()} size="50"></input><br />
     <label for="dataInicio">Data de Inicio:</label> <input type="date"
-                                             name="dataInicio" th:value=${pediodoAluguel.getDataInicio().toString()} size="50"></input><br />
+                                             name="dataInicio" th:value=${pedidoAluguel.getDataInicio().toString()} size="50"></input><br />
     <label for="dataFim">Data Final:</label> <input type="date"
-                                               name="dataFim" th:value=${pediodoAluguel.getDataFim().toString()} size="50"></input><br />
+                                               name="dataFim" th:value=${pedidoAluguel.getDataFim().toString()} size="50"></input><br />
     <input type="submit"></input>
 </form>
 </body>
