@@ -1,42 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { alunoProps } from "../constants/models";
+import { professorProps, instituicaoProps } from "../constants/models";
 
 interface editProps {
-  onHandleEditAluno: (note: alunoProps) => void;
-  selectEditedAluno: alunoProps | undefined;
+  onHandleEditProfessor: (note: professorProps) => void;
+  selectEditedProfessor: professorProps | undefined;
   showUpdateModal: boolean;
-  setSelectEditedAluno: React.Dispatch<React.SetStateAction<alunoProps | undefined>>;
+  setSelectEditedProfessor: React.Dispatch<React.SetStateAction<professorProps | undefined>>;
   setUpdateModalVisibility: (visibility: boolean) => void;
-  instituicoes: string[];
+  instituicoes: instituicaoProps[];
 }
 
 const EditModal = ({
-  onHandleEditAluno,
-  selectEditedAluno,
+  onHandleEditProfessor,
+  selectEditedProfessor,
   showUpdateModal,
-  setSelectEditedAluno,
+  setSelectEditedProfessor,
   setUpdateModalVisibility,
   instituicoes
 }: editProps) => {
-  const [email, setEmail] = useState<string | undefined>(selectEditedAluno?.aluno?.email);
-  const [nome, setNome] = useState<string | undefined>(selectEditedAluno?.nome);
-  const [cpf, setCpf] = useState<string | undefined>(selectEditedAluno?.cpf);
-  const [rg, setRg] = useState<string | undefined>(selectEditedAluno?.aluno?.rg);
-  const [endereco, setEndereco] = useState<string | undefined>(selectEditedAluno?.aluno?.endereco);
-  const [instituicao, setInstituicao] = useState<string | undefined>(selectEditedAluno?.instituicao.id);
-  const [curso, setCurso] = useState<string | undefined>(selectEditedAluno?.aluno?.curso);
+  const [nome, setNome] = useState<string | undefined>(selectEditedProfessor?.nome);
+  const [cpf, setCpf] = useState<string | undefined>(selectEditedProfessor?.cpf);
+  const [instituicaoId, setInstituicaoId] = useState<string | undefined>(selectEditedProfessor?.instituicao?.id);
+  const [departamento, setDepartamento] = useState<string | undefined>(selectEditedProfessor?.professor?.departamento);
   // handle event
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleEditAluno({ email, nome, cpf, rg, endereco, instituicao, curso });
+    onHandleEditProfessor({ nome, cpf, instituicaoId, departamento });
     setUpdateModalVisibility(!showUpdateModal);
-    setEmail("");
     setNome("");
     setCpf("");
-    setRg("");
-    setEndereco("");
-    setInstituicao("");
-    setCurso("");
+    setInstituicaoId("");
+    setDepartamento("");
   };
   return (
     <>
@@ -46,7 +40,7 @@ const EditModal = ({
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold text-black">Add Aluno</h3>
+              <h3 className="text-3xl font-semibold text-black">Add Professor</h3>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => setUpdateModalVisibility(!showUpdateModal)}>
@@ -83,64 +77,25 @@ const EditModal = ({
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">RG</label>
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="rg"
-                    type="text"
-                    placeholder="rg"
-                    value={rg}
-                    name="rg"
-                    onChange={(e) => setRg(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">E-Mail</label>
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="email"
-                    type="text"
-                    placeholder="email"
-                    value={email}
-                    name="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">Endereço</label>
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="endereco"
-                    type="text"
-                    placeholder="endereco"
-                    value={endereco}
-                    name="endereco"
-                    onChange={(e) => setEndereco(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-4">
 
                   <label htmlFor="instituicao" className="block text-gray-700 text-sm font-bold mb-2">instituição:</label>
-                  <select id="instituicao" value={instituicao} onChange={(e) => setInstituicao(e.target.value)} name="instituicao" className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                    {instituicoes.map((inst: string) => (
+                  <select id="instituicao" value={instituicaoId} onChange={(e) => setInstituicaoId(e.target.value)} name="instituicao" className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    {instituicoes && instituicoes.map((inst: instituicaoProps) => (
                       <option key={inst.id} value={inst.id}>{inst.nome}</option>
                     ))}
                     
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">Curso</label>
+                  <label className="block text-gray-700 text-sm font-bold mb-2">Departamento</label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="curso"
+                    id="departamento"
                     type="text"
-                    placeholder="curso"
-                    value={curso}
-                    name="curso"
-                    onChange={(e) => setCurso(e.target.value)}
+                    placeholder="departamento"
+                    value={departamento}
+                    name="departamento"
+                    onChange={(e) => setDepartamento(e.target.value)}
                     required
                   />
                 </div>

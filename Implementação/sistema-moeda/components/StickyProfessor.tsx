@@ -1,18 +1,18 @@
 import React from "react";
 import { EditIcon } from "../icons/EditIcon";
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { alunoProps } from "../constants/models";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { professorProps } from "../constants/models";
 
 interface Props {
-  data: alunoProps;
-  onSelectEditedAluno: (selectAluno: alunoProps) => void;
-  onSelectAccountAluno: (selectAluno: alunoProps) => void;
-  onDeleteAluno: (id: string) => Promise<void>;
+  data: professorProps;
+  onSelectEditedProfessor: (selectProfessor: professorProps) => void;
+  onSelectAccountProfessor: (selectProfessor: professorProps) => void;
+  onDeleteProfessor: (id: string) => Promise<void>;
 }
 
-const StickyAluno = ({ data, onSelectEditedAluno, onDeleteAluno, onSelectAccountAluno }: Props) => {
-  const { id, nome, cpf, instituicao, aluno } = data;
+const StickyProfessor = ({ data, onSelectEditedProfessor, onSelectAccountProfessor, onDeleteProfessor }: Props) => {
+  const { id, nome, cpf, instituicao, professor } = data;
 
   return (
     <div
@@ -23,15 +23,15 @@ const StickyAluno = ({ data, onSelectEditedAluno, onDeleteAluno, onSelectAccount
           <div className="w-32">
             <h4 className="text-gray-900 font-bold mb-3">{nome}</h4>
           </div>
-          <div onClick={() => onDeleteAluno(id!)} className="float-right">
+          <div onClick={() => onDeleteProfessor(id!)} className="float-right">
             <DeleteIcon className="w-8 h-8 hover:scale-125" />
           </div>
         </div>
         <p className="text-gray-800 text-sm">cpf: {cpf}</p>
-        <p className="text-gray-800 text-sm">email: {aluno?.email}</p>
-        <p className="text-gray-800 text-sm">rg: {aluno?.rg}</p>
-        <p className="text-gray-800 text-sm">endereço: {aluno?.endereco}</p>
-        <p className="text-gray-800 text-sm">curso: {aluno?.curso}</p>
+        {/* <p className="text-gray-800 text-sm">email: {professor?.email}</p>
+        <p className="text-gray-800 text-sm">rg: {professor?.rg}</p>
+        <p className="text-gray-800 text-sm">endereço: {professor?.endereco}</p>*/}
+        <p className="text-gray-800 text-sm">Departamento: {professor?.departamento}</p> 
         <p className="text-gray-800 text-sm">instituição: {instituicao?.nome}</p>
       </div>
       <div>
@@ -39,21 +39,22 @@ const StickyAluno = ({ data, onSelectEditedAluno, onDeleteAluno, onSelectAccount
           <button
             className="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 ring-offset-pink-300   focus:ring-black hover:scale-125"
             aria-label="edit note"
-            onClick={() => onSelectEditedAluno(data)}
+            onClick={() => onSelectEditedProfessor(data)}
             role="button">
             <EditIcon className="icon icon-tabler icon-tabler-pencil hover:scale-125" />
           </button>
           <button
             className="w-8 h-8 rounded-full bg-gray-800 text-white flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 ring-offset-pink-300   focus:ring-black hover:scale-125"
             aria-label="edit note"
-            onClick={() => onSelectAccountAluno(data)}
+            onClick={() => onSelectAccountProfessor(data)}
             role="button">
             <AccountBoxIcon className="icon icon-tabler icon-tabler-pencil hover:scale-125" />
           </button>
         </div>
+        
       </div>
     </div>
   );
 };
 
-export default StickyAluno;
+export default StickyProfessor;

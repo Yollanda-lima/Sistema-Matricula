@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+.container {
+  padding: 2rem;
+}
+
 .footer {
   display: flex;
   flex: 1;
@@ -40,18 +44,21 @@
 }
 
 .title {
-  margin: 0;
+  margin: 5px;
   line-height: 1.15;
   font-size: 4rem;
 }
 
-.title,
-.description {
+.title {
   text-align: center;
 }
 
 .description {
-  margin: 4rem 0;
+  text-align: left;
+}
+
+.description {
+  margin: 1rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
 }

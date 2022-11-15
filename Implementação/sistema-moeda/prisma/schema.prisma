@@ -6,41 +6,66 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 enum userType {
   ALUNO
   PROFESSOR
 }
 
+enum tipoTransferencia {
+  DEPOSITO
+  TRANSFERENCIA
+}
+
 model User {
-  id String   @id @default(cuid())
-  nome     String   @unique
-  cpf      String?
-  instituicao instituicao? @relation(fields: [instituicaoId], references: [id])
+  id            String       @id @default(cuid())
+  nome          String       @unique
+  cpf           String?
+  instituicao   instituicao? @relation(fields: [instituicaoId], references: [id])
   instituicaoId String?
-  type     userType
-  aluno Aluno?
-  professor Professor?
-  
+  type          userType
+  conta         Conta        @relation(fields: [contaId], references: [id])
+  contaId       String
+  aluno         Aluno?
+  professor     Professor?
+}
+
+model Conta {
+  id                  String       @id @default(cuid())
+  saldo               Float
+  users               User[]
+  notasFiscaisDestino NotaFiscal[] @relation(name: "destino")
+  notasFiscaisOrigem  NotaFiscal[] @relation(name: "origem")
+}
+
+model NotaFiscal {
+  id             String            @id @default(cuid())
+  valor          Float
+  tipo           tipoTransferencia
+  data           DateTime
+  contaDestino   Conta             @relation(name: "destino", fields: [contaDestinoId], references: [id])
+  contaDestinoId String
+  contaOrigem    Conta             @relation(name: "origem", fields: [contaOrigemId], references: [id])
+  contaOrigemId  String
 }
 
 model Aluno {
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @id
-  email String?
-  rg String?
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String  @id
+  email    String?
+  rg       String?
   endereco String?
-  curso String?
+  curso    String?
 }
 
 model instituicao {
-  id String   @id @default(cuid())
-  nome String
+  id    String @id @default(cuid())
+  nome  String
   users User[]
 }
 
 model Professor {
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @id
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String @id
   departamento String
 }
-

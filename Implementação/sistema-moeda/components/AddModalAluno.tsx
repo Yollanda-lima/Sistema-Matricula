@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { alunoProps } from "../constants/models";
+import { alunoProps, instituicaoProps } from "../constants/models";
 
 type Props = {
   onHandleAddAluno: (aluno: alunoProps) => void;
   showAddModal: boolean;
   setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
-  instituicoes: string[];
+  instituicoes: instituicaoProps[];
 };
 
 const AddModal = ({ onHandleAddAluno, showAddModal, setAddModalVisibility, instituicoes }: Props) => {
@@ -15,13 +15,13 @@ const AddModal = ({ onHandleAddAluno, showAddModal, setAddModalVisibility, insti
   const [cpf, setCpf] = useState<string>("");
   const [rg, setRg] = useState<string>("");
   const [endereco, setEndereco] = useState<string>("");
-  const [instituicao, setInstituicao] = useState<string>(instituicoes[0].id);
+  const [instituicaoId, setInstituicaoId] = useState<string | undefined>(instituicoes[0].id);
   const [curso, setCurso] = useState<string>("");
 
   // handle on submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleAddAluno({ email, nome, cpf, rg, endereco, instituicao, curso });
+    onHandleAddAluno({ email, nome, cpf, rg, endereco, instituicaoId, curso });
     setEmail("");
     setNome("");
     setAddModalVisibility(!showAddModal);
@@ -112,8 +112,8 @@ const AddModal = ({ onHandleAddAluno, showAddModal, setAddModalVisibility, insti
                 <div className="mb-4">
 
                   <label htmlFor="instituicao" className="block text-gray-700 text-sm font-bold mb-2">instituição:</label>
-                  <select id="instituicao" value={instituicao} onChange={(e) => setInstituicao(e.target.value)} name="instituicao" className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                    {instituicoes.map((inst: string) => (
+                  <select id="instituicao" value={instituicaoId} onChange={(e) => setInstituicaoId(e.target.value)} name="instituicao" className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    {instituicoes && instituicoes.map((inst: instituicaoProps) => (
                       <option key={inst.id} value={inst.id}>{inst.nome}</option>
                     ))}
                     

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { alunoProps } from "../constants/models";
+import { alunoProps, instituicaoProps } from "../constants/models";
 
 interface editProps {
   onHandleEditAluno: (note: alunoProps) => void;
@@ -7,7 +7,7 @@ interface editProps {
   showUpdateModal: boolean;
   setSelectEditedAluno: React.Dispatch<React.SetStateAction<alunoProps | undefined>>;
   setUpdateModalVisibility: (visibility: boolean) => void;
-  instituicoes: string[];
+  instituicoes: instituicaoProps[];
 }
 
 const EditModal = ({
@@ -18,25 +18,24 @@ const EditModal = ({
   setUpdateModalVisibility,
   instituicoes
 }: editProps) => {
-  const [email, setEmail] = useState<string | undefined>(selectEditedAluno?.aluno.email);
+  const [email, setEmail] = useState<string | undefined>(selectEditedAluno?.aluno?.email);
   const [nome, setNome] = useState<string | undefined>(selectEditedAluno?.nome);
   const [cpf, setCpf] = useState<string | undefined>(selectEditedAluno?.cpf);
-  const [rg, setRg] = useState<string | undefined>(selectEditedAluno?.aluno.rg);
-  const [endereco, setEndereco] = useState<string | undefined>(selectEditedAluno?.aluno.endereco);
-  const [instituicao, setInstituicao] = useState<string | undefined>(selectEditedAluno?.instituicao.nome);
-  const [curso, setCurso] = useState<string | undefined>(selectEditedAluno?.aluno.curso);
-
+  const [rg, setRg] = useState<string | undefined>(selectEditedAluno?.aluno?.rg);
+  const [endereco, setEndereco] = useState<string | undefined>(selectEditedAluno?.aluno?.endereco);
+  const [instituicaoId, setInstituicaoId] = useState<string | undefined>(selectEditedAluno?.instituicao?.id);
+  const [curso, setCurso] = useState<string | undefined>(selectEditedAluno?.aluno?.curso);
   // handle event
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleEditAluno({ email, nome, cpf, rg, endereco, instituicao, curso });
+    onHandleEditAluno({ email, nome, cpf, rg, endereco, instituicaoId, curso });
     setUpdateModalVisibility(!showUpdateModal);
     setEmail("");
     setNome("");
     setCpf("");
     setRg("");
     setEndereco("");
-    setInstituicao("");
+    setInstituicaoId("");
     setCurso("");
   };
   return (
@@ -50,7 +49,7 @@ const EditModal = ({
               <h3 className="text-3xl font-semibold text-black">Add Aluno</h3>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                onClick={() => setAddModalVisibility(!showUpdateModal)}>
+                onClick={() => setUpdateModalVisibility(!showUpdateModal)}>
                 Close
               </button>
             </div>
@@ -125,9 +124,9 @@ const EditModal = ({
                 <div className="mb-4">
 
                   <label htmlFor="instituicao" className="block text-gray-700 text-sm font-bold mb-2">instituição:</label>
-                  <select id="instituicao" value={instituicao} onChange={(e) => setInstituicao(e.target.value)} name="instituicao" className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                    {instituicoes.map((inst: string) => (
-                      <option value={inst.id}>{inst.nome}</option>
+                  <select id="instituicao" value={instituicaoId} onChange={(e) => setInstituicaoId(e.target.value)} name="instituicao" className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                    {instituicoes && instituicoes.map((inst: instituicaoProps) => (
+                      <option key={inst.id} value={inst.id}>{inst.nome}</option>
                     ))}
                     
                   </select>

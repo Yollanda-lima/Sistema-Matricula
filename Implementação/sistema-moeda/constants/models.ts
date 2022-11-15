@@ -26,6 +26,7 @@ export interface userProps {
   cpf?: string;
   instituicao?: instituicaoProps | undefined;
   instituicaoId?: string | undefined;
+  conta?: contaProps | undefined;
   type?: userType;
   aluno?: alunoProps | undefined;
   professor?: professorProps | undefined;
