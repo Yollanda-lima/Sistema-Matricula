@@ -12,9 +12,11 @@ const AlunoAccount = ({ alunoData, extratoData }: {alunoData: userProps}) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Conta de: {alunoData.nome}</h1>
-      <p className={styles.description}>CPF: {alunoData.cpf}</p>
+      <p className={styles.description}>CPF: {alunoData.aluno?.cpf}</p>
       <p className={styles.description}>Curso: {alunoData.aluno?.curso}</p>
       <p className={styles.description}>Saldo: {alunoData.conta?.saldo}</p>
+
+      <a href={route.pathname.replace('[id]', route.query.id) + '/produtos'}>Produtos para visualizar</a>
 
       <h1 className={styles.title}>Extrato</h1>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">

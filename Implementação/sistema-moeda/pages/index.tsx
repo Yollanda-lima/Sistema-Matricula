@@ -6,24 +6,20 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import absoluteUrl from "next-absolute-url";
-import { useRouter } from "next/router";
 
-import StickyAluno from "../components/StickyAluno";
-import AddModal from "../components/AddModalAluno";
-import EditModal from "../components/EditModalAluno";
-
-import { AddIcon } from "../icons/AddIcon";
-import { alunoProps, instituicaoProps, professorProps } from "../constants/models";
-import AlunoDashboard from "../components/AlunoDashboard";
-import ProfessoresDashboard from "../components/ProfessorDashboard";
+import { alunoProps, empresaProps, instituicaoProps, professorProps } from "../constants/models";
+import AlunoDashboard from "../components/AlunoComponents/AlunoDashboard";
+import ProfessoresDashboard from "../components/ProfessorComponents/ProfessorDashboard";
+import EmpresaDashboard from "../components/EmpresaComponents/EmpresaDashboard";
 
 interface homeProps {
   alunosData: alunoProps[];
   instituicoesData: instituicaoProps[];
   professoresData: professorProps[];
+  empresasData: empresaProps[];
 }
-const Home: NextPage<homeProps> = ({ alunosData, professoresData, instituicoesData }) => {
-
+const Home: NextPage<homeProps> = ({ alunosData, professoresData, instituicoesData, empresasData }) => {
+  console.log(alunosData, professoresData, instituicoesData, empresasData)
   return (
     <div className={styles.container}>
       <Head>
@@ -42,6 +38,9 @@ const Home: NextPage<homeProps> = ({ alunosData, professoresData, instituicoesDa
           results={professoresData}
           instituicoes={instituicoesData}
         />
+        <EmpresaDashboard
+          results={empresasData}
+        />
       </div>
     </div>
   );
@@ -52,12 +51,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const alunosData = await (await axios.get(`${origin}/api/users/alunos`)).data;
   const professoresData = await (await axios.get(`${origin}/api/users/professores`)).data;
   const instituicoesData = await (await axios.get(`${origin}/api/instituicoes`)).data;
+  const empresasData = await (await axios.get(`${origin}/api//users/empresas`)).data;
 
   return {
     props: {
       alunosData: alunosData.data.alunos || [],
       professoresData: professoresData.data.professores || [],
       instituicoesData: instituicoesData.data.instituicoes || [],
+      empresasData: empresasData.data.empresas || []
     },
   };
 };

@@ -10,22 +10,38 @@ const getAllExtratos = catchAsyncErrors(
       where: {
         OR: [
           {
-            contaOrigem: {
-              users: {
-                some: {
-                  id: userId as string,
-                }
+            AND : [
+              {
+                contaOrigem: {
+                  users: {
+                    some: {
+                      id: userId as string,
+                    }
+                  },
+                  
+                },
+              
+              },
+              {
+                tipo: "TRANSFERENCIA",
               }
-            },
+            ]
           },
           {
-            contaDestino: {
-              users: {
-                some: {
-                  id: userId as string,
+            AND : [
+              {
+                contaDestino: {
+                  users: {
+                    some: {
+                      id: userId as string,
+                    }
+                  }
                 }
+              },
+              {
+                tipo: "DEPOSITO",
               }
-            }
+            ]
           }
         ]
 

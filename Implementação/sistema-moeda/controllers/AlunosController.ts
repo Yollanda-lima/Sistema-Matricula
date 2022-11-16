@@ -9,8 +9,11 @@ const getAllAlunos = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRe
       type: "ALUNO"
     },
     include: {
-      aluno: true,
-      instituicao: true
+      aluno: {
+        include: {
+          instituicao: true
+        }
+      }
     }
   });
 
@@ -29,22 +32,21 @@ const postAluno = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRespo
     data: {
       aluno : {
         create: {
-          email, rg, endereco, curso,
-        }
+          email, cpf, rg, endereco, curso, instituicao : {
+            connect: {
+              id: instituicaoId
+            }
+          }
+        },
       },
+
       conta : {
         create: {
           saldo : 0
         }
       },
       nome,
-      instituicao : {
-        connect: {
-          id: instituicaoId
-        }
-      },
       
-      cpf,
       type: "ALUNO"
     },
   });
@@ -58,12 +60,18 @@ const getAlunosPorInstituicao = catchAsyncErrors(async (req: NextApiRequest, res
   const { id } = req.query;
   const alunos = await prisma.user.findMany({
     where: {
-      instituicaoId: String(id),
+      aluno: {
+        instituicaoId: String(id)
+      },
       type: "ALUNO"
     },
     include: {
-      aluno: true,
-      instituicao: true,
+      aluno: {
+        include: {
+          instituicao: true,
+        }
+      },
+      
       conta: true,
     }
   });
@@ -120,16 +128,16 @@ const updateAluno = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRes
     data: {
       aluno : {
         update: {
-          email, rg, endereco, curso,
+          email, cpf, rg, endereco, curso,
+          instituicao : {
+            connect: {
+              id: instituicaoId
+            }
+          },
         }
       },
       nome,
-      cpf,
-      instituicao : {
-        connect: {
-          id: instituicaoId
-        }
-      },
+      
     },
   });
   res.status(200).json({

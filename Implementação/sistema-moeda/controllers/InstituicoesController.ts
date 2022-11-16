@@ -33,7 +33,7 @@ const deleteInstituicao = catchAsyncErrors(async (req: NextApiRequest, res: Next
   const { id } = req.query;
   await prisma.instituicao.delete({
     where: {
-      id: id.toString(),
+      id: id?.toString(),
     },
   });
 
@@ -48,33 +48,10 @@ const getInstituicao = catchAsyncErrors(async (req: NextApiRequest, res: NextApi
   const { id } = req.query;
   const instituicao = await prisma.instituicao.findUnique({
     where: {
-      id: id.toString(),
+      id: id?.toString(),
     },
   });
 
-  res.status(200).json({
-    status: "success",
-    data: {
-      instituicao,
-    },
-  });
-});
-
-// update a instituicao from with a instituicao id request dynamically
-const updateInstituicao = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { id } = req.query;
-  const { email, nome, cpf } = req.body;
-
-  const instituicao = await prisma.instituicao.update({
-    where: {
-      id: id.toString(),
-    },
-    data: {
-      email,
-      nome,
-      cpf,
-    },
-  });
   res.status(200).json({
     status: "success",
     data: {
@@ -84,4 +61,4 @@ const updateInstituicao = catchAsyncErrors(async (req: NextApiRequest, res: Next
 });
 
 // export all routes to be used in the api/
-export { getAllInstituicoes, postInstituicao, deleteInstituicao, updateInstituicao, getInstituicao };
+export { getAllInstituicoes, postInstituicao, deleteInstituicao, getInstituicao };

@@ -10,6 +10,7 @@ datasource db {
 enum userType {
   ALUNO
   PROFESSOR
+  EMPRESA
 }
 
 enum tipoTransferencia {
@@ -20,14 +21,12 @@ enum tipoTransferencia {
 model User {
   id            String       @id @default(cuid())
   nome          String       @unique
-  cpf           String?
-  instituicao   instituicao? @relation(fields: [instituicaoId], references: [id])
-  instituicaoId String?
   type          userType
   conta         Conta        @relation(fields: [contaId], references: [id])
   contaId       String
   aluno         Aluno?
   professor     Professor?
+  empresa       Empresa?
 }
 
 model Conta {
@@ -53,19 +52,42 @@ model Aluno {
   user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String  @id
   email    String?
+  cpf           String?
   rg       String?
   endereco String?
   curso    String?
+  instituicao   instituicao? @relation(fields: [instituicaoId], references: [id])
+  instituicaoId String?
 }
 
 model instituicao {
   id    String @id @default(cuid())
   nome  String
-  users User[]
+  alunos Aluno[]
+  professores Professor[]
 }
 
 model Professor {
   user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String @id
+  cpf           String?
   departamento String
+  instituicao   instituicao? @relation(fields: [instituicaoId], references: [id])
+  instituicaoId String?
+}
+
+model Empresa {
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String @id
+  cnpj  String
+  produtos Produto[]
+}
+
+model Produto {
+  id        String @id @default(cuid())
+  nome      String
+  descricao String
+  preco     Float
+  empresa   Empresa @relation(fields: [empresaId], references: [userId])
+  empresaId String
 }

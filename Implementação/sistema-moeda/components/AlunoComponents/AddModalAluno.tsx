@@ -1,42 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { alunoProps, instituicaoProps } from "../constants/models";
+import React, { useState } from "react";
+import { alunoProps, instituicaoProps } from "../../constants/models";
 
-interface editProps {
-  onHandleEditAluno: (note: alunoProps) => void;
-  selectEditedAluno: alunoProps | undefined;
-  showUpdateModal: boolean;
-  setSelectEditedAluno: React.Dispatch<React.SetStateAction<alunoProps | undefined>>;
-  setUpdateModalVisibility: (visibility: boolean) => void;
+type Props = {
+  onHandleAddAluno: (aluno: alunoProps) => void;
+  showAddModal: boolean;
+  setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
   instituicoes: instituicaoProps[];
-}
+};
 
-const EditModal = ({
-  onHandleEditAluno,
-  selectEditedAluno,
-  showUpdateModal,
-  setSelectEditedAluno,
-  setUpdateModalVisibility,
-  instituicoes
-}: editProps) => {
-  const [email, setEmail] = useState<string | undefined>(selectEditedAluno?.aluno?.email);
-  const [nome, setNome] = useState<string | undefined>(selectEditedAluno?.nome);
-  const [cpf, setCpf] = useState<string | undefined>(selectEditedAluno?.cpf);
-  const [rg, setRg] = useState<string | undefined>(selectEditedAluno?.aluno?.rg);
-  const [endereco, setEndereco] = useState<string | undefined>(selectEditedAluno?.aluno?.endereco);
-  const [instituicaoId, setInstituicaoId] = useState<string | undefined>(selectEditedAluno?.instituicao?.id);
-  const [curso, setCurso] = useState<string | undefined>(selectEditedAluno?.aluno?.curso);
-  // handle event
+const AddModal = ({ onHandleAddAluno, showAddModal, setAddModalVisibility, instituicoes }: Props) => {
+  // handle field data 
+  const [email, setEmail] = useState<string>("");
+  const [nome, setNome] = useState<string>("");
+  const [cpf, setCpf] = useState<string>("");
+  const [rg, setRg] = useState<string>("");
+  const [endereco, setEndereco] = useState<string>("");
+  const [instituicaoId, setInstituicaoId] = useState<string | undefined>(instituicoes[0].id);
+  const [curso, setCurso] = useState<string>("");
+
+  // handle on submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleEditAluno({ email, nome, cpf, rg, endereco, instituicaoId, curso });
-    setUpdateModalVisibility(!showUpdateModal);
+    onHandleAddAluno({ email, nome, cpf, rg, endereco, instituicaoId, curso });
     setEmail("");
     setNome("");
-    setCpf("");
-    setRg("");
-    setEndereco("");
-    setInstituicaoId("");
-    setCurso("");
+    setAddModalVisibility(!showAddModal);
   };
   return (
     <>
@@ -49,7 +37,7 @@ const EditModal = ({
               <h3 className="text-3xl font-semibold text-black">Add Aluno</h3>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                onClick={() => setUpdateModalVisibility(!showUpdateModal)}>
+                onClick={() => setAddModalVisibility(!showAddModal)}>
                 Close
               </button>
             </div>
@@ -161,4 +149,4 @@ const EditModal = ({
   );
 };
 
-export default EditModal;
+export default AddModal;

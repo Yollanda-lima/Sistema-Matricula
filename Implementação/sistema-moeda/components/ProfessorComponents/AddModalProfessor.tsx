@@ -1,36 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { professorProps, instituicaoProps } from "../constants/models";
+import React, { useState } from "react";
+import { professorProps, instituicaoProps } from "../../constants/models";
 
-interface editProps {
-  onHandleEditProfessor: (note: professorProps) => void;
-  selectEditedProfessor: professorProps | undefined;
-  showUpdateModal: boolean;
-  setSelectEditedProfessor: React.Dispatch<React.SetStateAction<professorProps | undefined>>;
-  setUpdateModalVisibility: (visibility: boolean) => void;
+type Props = {
+  onHandleAddProfessor: (professor: professorProps) => void;
+  showAddModal: boolean;
+  setAddModalVisibility: React.Dispatch<React.SetStateAction<boolean>>;
   instituicoes: instituicaoProps[];
-}
+};
 
-const EditModal = ({
-  onHandleEditProfessor,
-  selectEditedProfessor,
-  showUpdateModal,
-  setSelectEditedProfessor,
-  setUpdateModalVisibility,
-  instituicoes
-}: editProps) => {
-  const [nome, setNome] = useState<string | undefined>(selectEditedProfessor?.nome);
-  const [cpf, setCpf] = useState<string | undefined>(selectEditedProfessor?.cpf);
-  const [instituicaoId, setInstituicaoId] = useState<string | undefined>(selectEditedProfessor?.instituicao?.id);
-  const [departamento, setDepartamento] = useState<string | undefined>(selectEditedProfessor?.professor?.departamento);
-  // handle event
+const AddModal = ({ onHandleAddProfessor, showAddModal, setAddModalVisibility, instituicoes }: Props) => {
+  // handle field data 
+  const [nome, setNome] = useState<string>("");
+  const [cpf, setCpf] = useState<string>("");
+  const [instituicaoId, setInstituicaoId] = useState<string | undefined>(instituicoes[0].id);
+  const [departamento, setDepartamento] = useState<string>("");
+
+  // handle on submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onHandleEditProfessor({ nome, cpf, instituicaoId, departamento });
-    setUpdateModalVisibility(!showUpdateModal);
+    onHandleAddProfessor({ nome, cpf, instituicaoId, departamento });
     setNome("");
     setCpf("");
-    setInstituicaoId("");
     setDepartamento("");
+    setAddModalVisibility(!showAddModal);
   };
   return (
     <>
@@ -43,7 +35,7 @@ const EditModal = ({
               <h3 className="text-3xl font-semibold text-black">Add Professor</h3>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                onClick={() => setUpdateModalVisibility(!showUpdateModal)}>
+                onClick={() => setAddModalVisibility(!showAddModal)}>
                 Close
               </button>
             </div>
@@ -116,4 +108,4 @@ const EditModal = ({
   );
 };
 
-export default EditModal;
+export default AddModal;

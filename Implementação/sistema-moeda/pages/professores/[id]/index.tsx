@@ -4,7 +4,7 @@ import axios from "axios";
 import { alunoProps, userProps } from "../../../constants/models";
 import styles from "../../../styles/Home.module.css";
 import { Key } from "readline";
-import StickyContaAluno from "../../../components/StickyContaAluno";
+import StickyContaAluno from "../../../components/AlunoComponents/StickyContaAluno";
 import { useRouter } from "next/router";
 
 const ProfessorAccount = ({ professorData }: {professorData: userProps}) => {

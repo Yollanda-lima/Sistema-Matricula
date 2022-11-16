@@ -1,6 +1,6 @@
 import React, { Key, useState, useId } from "react";
 
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -8,8 +8,8 @@ import StickyProfessores from "./StickyProfessor";
 import AddModal from "./AddModalProfessor";
 import EditModal from "./EditModalProfessor";
 
-import { AddIcon } from "../icons/AddIcon";
-import { professorProps, instituicaoProps } from "../constants/models";
+import { AddIcon } from "../../icons/AddIcon";
+import { professorProps, instituicaoProps } from "../../constants/models";
 import { NextPage } from "next";
 
 interface pageProfessoresProps {

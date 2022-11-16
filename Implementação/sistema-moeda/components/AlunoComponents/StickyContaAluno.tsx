@@ -1,7 +1,7 @@
 import React from "react";
-import { EditIcon } from "../icons/EditIcon";
-import { DeleteIcon } from "../icons/DeleteIcon";
-import { alunoProps } from "../constants/models";
+import { EditIcon } from "../../icons/EditIcon";
+import { DeleteIcon } from "../../icons/DeleteIcon";
+import { alunoProps } from "../../constants/models";
 import PaidIcon from '@mui/icons-material/Paid';
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";

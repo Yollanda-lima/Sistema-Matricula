@@ -10,8 +10,12 @@ const getAllProfessores = catchAsyncErrors(
         type: "PROFESSOR",
       },
       include: {
-        professor: true,
-        instituicao: true,
+        professor: {
+          include: {
+            instituicao: true,
+          }
+        },
+        
       },
     });
 
@@ -47,7 +51,7 @@ const sendMoneyToAluno = catchAsyncErrors(
     });
     if (aluno) {
       if (professor && professor.conta.saldo >= valor) {
-        const conta = await prisma.conta.update({
+        const contaAluno = await prisma.conta.update({
           where: {
             id: aluno.conta.id,
           },
@@ -55,35 +59,22 @@ const sendMoneyToAluno = catchAsyncErrors(
             saldo: {
               increment: valor,
             },
-            
-            
+            notasFiscaisDestino : {
+              create: {
+                valor,
+                tipo: "DEPOSITO",
+                data: new Date(),
+                contaOrigem: {
+                  connect: {
+                    id: professor.conta.id,
+                  }
+                }
+              }
+            },
           },
 
         });
-
-        await prisma.notaFiscal.create({
-          data: {
-            valor,
-            tipo: "TRANSFERENCIA",
-            contaDestino : {
-              connect: {
-                id: aluno.conta.id,
-              }
-            },
-            contaOrigem: {
-              connect: {
-                id: professor.conta.id,
-              }
-            },
-            data: new Date(),
-
-          },
-
-        });
-        
-
-
-        await prisma.conta.update({
+        const contaProfessor = await prisma.conta.update({
           where: {
             id: professor.conta.id,
           },
@@ -91,12 +82,24 @@ const sendMoneyToAluno = catchAsyncErrors(
             saldo: {
               decrement: valor,
             },
+            notasFiscaisOrigem : {
+              create: {
+                valor,
+                tipo: "TRANSFERENCIA",
+                data: new Date(),
+                contaDestino: {
+                  connect: {
+                    id: aluno.conta.id,
+                  }
+                }
+              }
+            },
           },
         });
 
         res.status(200).json({
           status: "success",
-          data: conta,
+          data: contaAluno,
         });
       }
     } else {
@@ -116,7 +119,13 @@ const postProfessor = catchAsyncErrors(
       data: {
         professor: {
           create: {
+            cpf,
             departamento,
+            instituicao: {
+              connect: {
+                id: instituicaoId,
+              },
+            },
           },
         },
         conta: {
@@ -125,13 +134,6 @@ const postProfessor = catchAsyncErrors(
           },
         },
         nome,
-        instituicao: {
-          connect: {
-            id: instituicaoId,
-          },
-        },
-
-        cpf,
         type: "PROFESSOR",
       },
     });
@@ -168,20 +170,24 @@ const getUser = catchAsyncErrors(
         id: id?.toString(),
       },
       include: {
-        professor: true,
-        instituicao: {
+        professor: {
           include: {
-            users: {
-              where: {
-                type: "ALUNO",
-              },
+            instituicao: {
               include: {
-                conta: true,
-                aluno: true,
-              },
-            },
-          },
+                alunos: {
+                  include: {
+                    user: {
+                      include: {
+                        conta: true,
+                      },
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
+        
         conta: true,
       },
     });
@@ -207,16 +213,16 @@ const updateProfessor = catchAsyncErrors(
       data: {
         professor: {
           update: {
-            departamento,
+            departamento, cpf,
+            instituicao: {
+              connect: {
+                id: instituicaoId,
+              },
+            },
           },
         },
         nome,
-        cpf,
-        instituicao: {
-          connect: {
-            id: instituicaoId,
-          },
-        },
+        
       },
     });
     res.status(200).json({

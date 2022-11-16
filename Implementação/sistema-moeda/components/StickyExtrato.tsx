@@ -1,19 +1,12 @@
 import React from "react";
-import { EditIcon } from "../icons/EditIcon";
-import { DeleteIcon } from "../icons/DeleteIcon";
-import { alunoProps } from "../constants/models";
-import PaidIcon from '@mui/icons-material/Paid';
-import { Button, TextField } from "@mui/material";
-import { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/router";
+import { notaFiscalProps } from "../constants/models";
 
 interface Props {
-  data: alunoProps;
+  data: notaFiscalProps;
 }
 
 const StickyExtrato = ({ data }: Props) => {
-  const { id, valor, contaDestino, contaOrigem } = data;
+  const { id, valor, contaDestino, contaOrigem, tipo } = data;
 
 
   return (
@@ -28,13 +21,11 @@ const StickyExtrato = ({ data }: Props) => {
 
         </div>
         <p className="text-gray-800 text-sm">Conta de Origem: {contaOrigem.users[0].nome}</p>
+        <p className="text-gray-800 text-sm">Tipo: {tipo}</p>
         <p className="text-gray-800 text-sm">Conta de Destino: {contaDestino.users[0].nome}</p>
         <p className="text-gray-800 text-sm">Data: {data.data.split('T')[0]}</p>
         <p className="text-gray-800 text-sm">Hora: {data.data.split('T')[1]}</p>
-        {/* <p className="text-gray-800 text-sm">email: {aluno?.email}</p>
-        <p className="text-gray-800 text-sm">rg: {aluno?.rg}</p>
-        <p className="text-gray-800 text-sm">endereço: {aluno?.endereco}</p>
-        <p className="text-gray-800 text-sm">curso: {aluno?.curso}</p> */}
+
       </div>
 
       <div>
