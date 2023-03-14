@@ -58,6 +58,7 @@ model Aluno {
   curso    String?
   instituicao   instituicao? @relation(fields: [instituicaoId], references: [id])
   instituicaoId String?
+  produtosResgatados      Produto[]
 }
 
 model instituicao {
@@ -90,4 +91,5 @@ model Produto {
   preco     Float
   empresa   Empresa @relation(fields: [empresaId], references: [userId])
   empresaId String
+  alunos    Aluno[]
 }

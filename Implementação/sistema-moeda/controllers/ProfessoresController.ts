@@ -115,6 +115,7 @@ const sendMoneyToAluno = catchAsyncErrors(
 const postProfessor = catchAsyncErrors(
   async (req: NextApiRequest, res: NextApiResponse) => {
     const { nome, cpf, instituicaoId, departamento } = req.body;
+    console.log(instituicaoId)
     const professor = await prisma.user.create({
       data: {
         professor: {

@@ -117,6 +117,49 @@ const getUser = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRespons
   });
 });
 
+const resgateRecompensa = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id, produtoId } = req.query;
+  console.log(id, produtoId);
+
+  const produto = await prisma.produto.findUnique({
+    where: {
+      id: produtoId?.toString(),
+    },
+  });
+
+  const aluno = await prisma.aluno.update({
+    where: {
+      userId: id?.toString(),
+    },
+    data: {
+      produtosResgatados: {
+        connect: {
+          id: produtoId?.toString(),
+        },
+      },
+      user: {
+        update: {
+          conta: {
+            update: {
+              saldo: {
+                decrement: produto?.preco
+              }
+            }
+          }
+        }
+      }
+
+    }
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      aluno,
+    },
+  });
+});
+
 // update a aluno from with a aluno id request dynamically
 const updateAluno = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
@@ -149,4 +192,4 @@ const updateAluno = catchAsyncErrors(async (req: NextApiRequest, res: NextApiRes
 });
 
 // export all routes to be used in the api/
-export { getAllAlunos, postAluno, deleteUser, updateAluno, getUser, getAlunosPorInstituicao };
+export { getAllAlunos, postAluno, deleteUser, updateAluno, getUser, resgateRecompensa, getAlunosPorInstituicao };

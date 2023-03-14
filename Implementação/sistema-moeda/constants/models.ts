@@ -24,6 +24,7 @@ export interface alunoProps extends userProps {
   userId?: string;
   instituicao?: instituicaoProps | undefined;
   instituicaoId?: string | undefined;
+  produtosResgatados?: produtoProps[];
 }
 
 export interface professorProps extends userProps {
@@ -61,6 +62,7 @@ export interface produtoProps {
   preco?: number;
   empresa?: empresaProps | undefined;
   empresaId?: string | undefined;
+  alunos?: alunoProps[];
 }
 
 export interface notaFiscalProps {

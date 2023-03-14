@@ -1,3 +1,6 @@
+import { Button } from "@mui/material";
+import axios from "axios";
+import { useRouter } from "next/router";
 import React from "react";
 import { produtoProps } from "../constants/models";
 
@@ -7,6 +10,14 @@ interface Props {
 
 const StickyProduto = ({ data }: Props) => {
   const {nome, descricao, preco } = data;
+  const route = useRouter();
+
+  function handleResgate() {
+    const { id } = route.query;
+    axios.post(`/api/users/alunos/${id}/produtos/${data.id}/resgate`).then((res) => {
+      alert("Resgate realizado com sucesso!");
+    });
+  }
 
 
   return (
@@ -22,6 +33,7 @@ const StickyProduto = ({ data }: Props) => {
         </div>
         <p className="text-gray-800 text-sm">Descricao: {descricao}</p>
         <p className="text-gray-800 text-sm">Preço: {preco}</p>
+        <Button className="text-gray-800 text-sm" color="success" variant="contained" onClick={handleResgate}> resgatar</Button>
 
       </div>
 
